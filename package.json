@@ -1,11 +1,16 @@
 {
   "name": "aparty",
-  "version": "0.3.0",
+  "version": "0.1.0",
   "description": "A silent focus room - real-time presence sharing without chat",
-  "main": "server.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start:server": "npm run start --workspace=@aparty/server",
+    "dev:server": "npm run dev --workspace=@aparty/server",
+    "dev:client": "npm run dev --workspace=@aparty/client"
   },
   "keywords": [
     "websocket",
@@ -21,8 +26,5 @@
   },
   "bugs": {
     "url": "https://github.com/let-sunny/aparty/issues"
-  },
-  "dependencies": {
-    "ws": "^8.16.0"
   }
 }

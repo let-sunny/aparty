@@ -1,4 +1,4 @@
-# Aparty v0.3
+# Aparty
 
 A silent focus room - real-time presence sharing without chat.
 
@@ -20,27 +20,25 @@ A silent focus room - real-time presence sharing without chat.
 npm install
 ```
 
+This will install dependencies for all workspaces (client and server).
+
 ### Start Server
 
 ```bash
-npm start
+npm run start:server
+# or
+npm run dev:server
 ```
 
 Server will start on `ws://localhost:8080`
 
-### Open Client
-
-Open `index.html` in a web browser or serve it via a local server:
+### Start Client
 
 ```bash
-# Using Python
-python3 -m http.server 3000
-
-# Using Node.js http-server
-npx http-server -p 3000
+npm run dev:client
 ```
 
-Then open `http://localhost:3000` in your browser.
+This will serve the client on a local server. Alternatively, you can open `client/index.html` directly in a browser or use any static file server.
 
 ## Usage
 
@@ -66,22 +64,38 @@ The feed shows 4 types of events:
 
 ## Architecture
 
-- **Client**: Pure JavaScript, WebSocket client, Hybrid ASCII/HTML UI
+- **Client**: Pure JavaScript (ES modules), WebSocket client, Hybrid ASCII/HTML UI
 - **Server**: Node.js + WebSocket (ws library)
 - **State**: In-memory only (Map-based storage)
 - **Sync**: Event-driven broadcasting
 - **UI**: ASCII frame with HTML content overlay
+- **Monorepo**: npm workspaces for client/server separation
 
 ## Project Structure
 
 ```
 .
-├── index.html      # Main HTML (minimal, just terminal <pre>)
-├── app.js          # Client-side logic and rendering
-├── server.js       # WebSocket server
-├── style.css       # Basic styling
-├── package.json    # Dependencies
-└── README.md       # This file
+├── client/                    # Client application
+│   ├── index.html             # Main HTML
+│   ├── style.css              # Styles
+│   ├── package.json           # Client dependencies
+│   └── src/
+│       ├── app.js             # Main application class
+│       ├── state/             # State management
+│       ├── events/            # Event handling
+│       ├── renderer/          # UI rendering
+│       ├── websocket/         # WebSocket connection
+│       └── utils/             # Utility functions
+├── server/                    # Server application
+│   ├── package.json           # Server dependencies
+│   └── src/
+│       ├── index.js           # Server entry point
+│       ├── room/              # Room state management
+│       ├── events/            # Event handlers
+│       ├── websocket/         # WebSocket server
+│       └── utils/             # Utility functions
+├── package.json               # Root workspace config
+└── README.md                  # This file
 ```
 
 ## Technical Notes
@@ -93,6 +107,26 @@ The feed shows 4 types of events:
 - MIN_HIT events checked every 10 seconds server-side
 - Todo text is private (only you can see your todos, others see progress count)
 - Progress updates are broadcasted in real-time when todos are toggled
+
+## Development
+
+### Monorepo Structure
+
+This project uses npm workspaces:
+- `@aparty/client`: Client application (ES modules)
+- `@aparty/server`: Server application (CommonJS)
+
+### Running Both
+
+You can run both client and server in separate terminals:
+
+```bash
+# Terminal 1: Server
+npm run dev:server
+
+# Terminal 2: Client
+npm run dev:client
+```
 
 ## License
 
