@@ -26,7 +26,7 @@ export function JoinModal({ show, todoTextRef, onTodoTextInput, onTodoTextPaste,
         <div className="row">
           <label htmlFor="nick">nickname</label>
           <div className="input-wrapper">
-            <input id="nick" maxLength={10} placeholder="sunny" />
+            <input id="nick" maxLength={10} placeholder="tabby" />
             <div className="input-line"></div>
           </div>
         </div>

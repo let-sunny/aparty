@@ -18,6 +18,8 @@
   "license": "MIT",
   "dependencies": {
     "@aparty/shared": "*",
+    "purrcat": "^0.1.8",
+    "purrtabby": "^0.1.3",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },

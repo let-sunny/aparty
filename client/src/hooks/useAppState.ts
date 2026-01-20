@@ -28,7 +28,6 @@ export function useAppState() {
   const handleEvent = useCallback((event: Event) => {
     setState(prevState => {
       const newState = { ...prevState };
-      const feedBefore = newState.feed.length;
       
       switch (event.type) {
         case EVENT_TYPES.ROOM_SNAPSHOT:
@@ -85,28 +84,33 @@ export function useAppState() {
             progressUser.doneCount = progressPayload.doneCount;
             newState.users = [...newState.users];
           }
-          const nickname = progressPayload.nickname || (progressUser ? progressUser.nickname : 'unknown');
+          
+          // nickname 우선순위: payload > user > me (자신의 경우) > 'unknown'
+          let nickname = progressPayload.nickname;
+          if (!nickname && progressUser) {
+            nickname = progressUser.nickname;
+          }
+          if (!nickname && progressPayload.sessionId === newState.me.sessionId) {
+            nickname = newState.me.nickname || 'unknown';
+          }
+          if (!nickname) {
+            nickname = 'unknown';
+          }
+          
           const doneCount = progressPayload.doneCount;
           const totalTodos = progressPayload.totalTodos || (progressUser ? progressUser.totalTodos : 0);
           
-          // 모든 progress를 피드에 추가
+          // 모든 progress를 피드에 추가 (자신의 것도 포함)
           newState.feed = [...newState.feed, `> ${nickname} progress: ${doneCount}/${totalTodos}`];
           if (newState.feed.length > 200) {
             newState.feed = newState.feed.slice(-200);
           }
           
+          // 자신이 보낸 PROGRESS 이벤트 처리
           if (progressPayload.sessionId === newState.me.sessionId) {
+            // doneCount만 업데이트하고, todos는 로컬 상태 유지 (이미 handleToggleTodo에서 올바르게 업데이트됨)
             newState.me.doneCount = progressPayload.doneCount;
-            // 내 todos도 업데이트
-            const myUser = newState.users.find(u => u.sessionId === newState.me.sessionId);
-            if (myUser) {
-              // doneCount에 맞춰서 todos 업데이트 (간단한 방법: 처음 N개를 done으로)
-              const newTodos = [...newState.myTodos];
-              for (let i = 0; i < newTodos.length; i++) {
-                newTodos[i].done = i < doneCount;
-              }
-              newState.myTodos = newTodos;
-            }
+            // todos는 변경하지 않음 (로컬 상태가 이미 올바름)
           }
           break;
 
