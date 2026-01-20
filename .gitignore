@@ -1,5 +1,7 @@
 node_modules/
 dist/
+**/dist/
+**/dist-cjs/
 *.log
 .env
 .DS_Store
