@@ -1,4 +1,4 @@
-export function renderFrame(width, rightWidth) {
+export function renderFrame(width: number, rightWidth: number): string {
   const contentWidth = 90;
   const leftContentWidth = contentWidth - rightWidth - 1;
   const frameWidth = width;

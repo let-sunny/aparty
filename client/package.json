@@ -4,7 +4,9 @@
   "description": "Aparty client application",
   "type": "module",
   "scripts": {
-    "dev": "npx serve ."
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "websocket",
@@ -13,5 +15,17 @@
     "productivity"
   ],
   "author": "minseon",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@aparty/shared": "*",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
 }

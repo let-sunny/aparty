@@ -4,84 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Aparty</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="ascii-title">
-░█▀█░█▀█░█▀█░█▀▄░▀█▀░░░░░░█▀█░░░█▀█░█▀█░█▀▄░▀█▀░█░█░░░
-░█▀█░█▀▀░█▀█░█▀▄░░█░░░░░░░█▀█░░░█▀▀░█▀█░█▀▄░░█░░░█░░░░
-░▀░▀░▀░░░▀░▀░▀░▀░░▀░░▀░░░░▀░▀░░░▀░░░▀░▀░▀░▀░░▀░░░▀░░▀░
-  </div>
-  <div id="terminal-container">
-    <div id="terminal-frame"></div>
-    <div id="terminal-content">
-      <div id="header">
-        <span id="title"></span>
-        <span id="user-count">USERS: 0</span>
-      </div>
-      <div id="panels">
-        <div id="feed-panel">
-          <div class="panel-title"><strong>FEED</strong></div>
-          <div id="feed-content"></div>
-        </div>
-        <div id="people-panel">
-          <div id="me-section"></div>
-          <div id="users-title" class="panel-title"></div>
-          <div id="users-section"></div>
-        </div>
-      </div>
-      <div id="footer">
-        <div id="footer-left"></div>
-        <div id="footer-right"></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay" id="overlay">
-    <div id="modal-ascii-title">
-░▀▀█░█▀█░▀█▀░█▀█
-░░░█░█░█░░█░░█░█
-░▀▀░░▀▀▀░▀▀▀░▀░▀
-    </div>
-    <div class="modal-content">
-
-      <div class="row">
-        <label for="nick">nickname</label>
-        <div class="input-wrapper">
-          <input id="nick" maxlength="10" placeholder="sunny" />
-          <div class="input-line"></div>
-        </div>
-      </div>
-
-      <div class="row">
-        <label for="min">min focus</label>
-        <div class="input-wrapper">
-          <select id="min">
-            <option value="25">25m</option>
-            <option value="50" selected>50m</option>
-            <option value="90">90m</option>
-            <option value="120">120m</option>
-          </select>
-          <div class="input-line"></div>
-        </div>
-      </div>
-
-      <div class="row" style="align-items:flex-start;">
-        <label>todo text</label>
-        <div style="flex:1;">
-          <div class="input-wrapper" style="position: relative;">
-            <textarea id="todoText" rows="4" placeholder="todo 1&#10;todo 2&#10;todo 3&#10;todo 4"></textarea>
-            <div class="input-line"></div>
-          </div>
-          <div class="tiny">Enter each todo on a new line. Only you can see these. Others see just 1/4 progress.</div>
-        </div>
-      </div>
-
-      <div class="hint">Rules: No chat. No reactions. No shared todo text. Leave & rejoin to reset.</div>
-      <div class="tiny">Press J to join. Keys: 1-4 = toggle done, L = leave</div>
-    </div>
-  </div>
-
-  <script type="module" src="src/app.js"></script>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
